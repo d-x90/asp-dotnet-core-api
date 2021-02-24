@@ -1,0 +1,22 @@
+version: "3"
+services:
+  postgres:
+    image: postgres
+    environment:
+      - TZ=${TIME_ZONE}
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=AspDotnetCoreApi
+    ports:
+      - "5432:5432"
+    #volumes:
+    #  - ./db-mount:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      - TZ=${TIME_ZONE}
+      - PGADMIN_DEFAULT_EMAIL=docker@docker.com
+      - PGADMIN_DEFAULT_PASSWORD=docker
+    ports:
+      - 2345:80
