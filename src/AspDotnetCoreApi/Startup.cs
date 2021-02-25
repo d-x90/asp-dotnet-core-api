@@ -53,11 +53,26 @@ namespace AspDotnetCoreApi
                         ValidateAudience = false
                     };
                 });
+
+            services.AddSwaggerGen(options => {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo() {
+                    Title = "Asp.Net Core API",
+                    Version = "v1"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c => {
+                // This way swagger json will be served at /swagger/v1/swagger.json
+                // But the swagger ui is served at /swagger/index.html
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Asp.Net Core API");
+            });
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
